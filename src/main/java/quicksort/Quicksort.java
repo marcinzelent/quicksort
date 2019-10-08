@@ -1,7 +1,7 @@
 package quicksort;
 
 public class Quicksort {
-    static void quicksort(int[] array, int l, int r) {
+    public static void quicksort(int[] array, int l, int r) {
         if (l < r) {
             int i = partition(array, l, r);
             quicksort(array, l, i - 1);
@@ -9,7 +9,7 @@ public class Quicksort {
         }
     }
 
-    static int partition(int[] array, int l, int r) {
+    private static int partition(int[] array, int l, int r) {
         int pi = l + (r - l) / 2;
         int pv = array[pi];
         exchange(array, pi, r);
@@ -24,7 +24,7 @@ public class Quicksort {
         return cp;
     }
 
-    static void exchange(int[] array, int i1, int i2) {
+    private static void exchange(int[] array, int i1, int i2) {
         int tmp = array[i1];
         array[i1] = array[i2];
         array[i2] = tmp;
