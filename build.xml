@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="quicksort" default="compile">
+    <target name="clean" description="remove intermediate files">
+        <delete dir="target/classes" />
+    </target>
+    <target name="clobber" depends="clean" description="remove all artifact files">
+        <delete file="target/quicksort.jar" />
+    </target>
+    <target name="compile" depends="resolve" description="compile the Java source code to class files">
+        <path id="classpath">
+            <fileset dir="lib" includes="**/*.jar" />
+        </path>
+        <mkdir dir="target/classes" />
+        <javac srcdir="src" destdir="target/classes" classpathref="classpath" />
+    </target>
+    <target name="jar" depends="compile" description="create a Jar file for the application">
+        <jar destfile="target/quicksort.jar">
+            <fileset dir="target/classes" includes="**/*.class" />
+            <manifest>
+                <attribute name="Main-Class" value="main" />
+            </manifest>
+        </jar>
+    </target>
+    <target name="resolve" description="retrieve dependencies with ivy">
+        <ivy:retrieve conf="sources" pattern="target/lib/[conf]/[artifact](-[classifier]).[ext]" />
+        <ivy:retrieve conf="binaries" pattern="target/lib/[conf]/[artifact](-[classifier]).[ext]" />
+    </target>
+</project>
